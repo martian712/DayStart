@@ -15,7 +15,7 @@
         android:background="@color/colorPrimaryDark"
         android:paddingTop="16dp"
         android:paddingBottom="16dp"
-        android:text="Today's Tasks" />
+        android:text="@string/today_section_label" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/today_tasks"
@@ -28,5 +28,10 @@
         android:paddingLeft="8dp"
         android:paddingRight="8dp"
         android:scrollbars="vertical" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="add_task"/>
 
 </android.widget.LinearLayout>

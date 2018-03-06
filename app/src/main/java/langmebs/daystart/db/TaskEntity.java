@@ -13,7 +13,7 @@ import java.util.UUID;
  * Created by brandon on 3/6/2018.
  */
 
-@Entity
+@Entity(tableName = "tasks")
 public class TaskEntity {
 
     @NonNull
