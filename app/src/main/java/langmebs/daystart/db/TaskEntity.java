@@ -25,7 +25,7 @@ public class TaskEntity {
     private String name;
 
     @ColumnInfo(name = "task_date")
-    private Date day;
+    private String day;
 
     @ColumnInfo(name = "task_completed")
     private boolean isComplete;
@@ -33,25 +33,28 @@ public class TaskEntity {
     @Ignore
     //Constructors
     //Standard Constructor that assigns an Id because the user never needs it
-    public TaskEntity(String _name, Date _day, boolean _complete) {
-        taskId = UUID.randomUUID().toString();
-        name = _name;
-        day = _day;
-        isComplete = _complete;
+    public TaskEntity(String name, String day, boolean isComplete) {
+        this.taskId = UUID.randomUUID().toString();
+        this.name = name;
+        this.day = day;
+        this.isComplete = isComplete;
     }
 
     //Constructor that may be used by the application when giving assigned ids
-    //TODO Do I need this?
-    public TaskEntity(String _id, String _name, Date _day, boolean _complete) {
-        taskId = _id;
-        name = _name;
-        day = _day;
-        isComplete = _complete;
+    public TaskEntity(String taskId, String name, String day, boolean isComplete) {
+        this.taskId = taskId;
+        this.name = name;
+        this.day = day;
+        this.isComplete = isComplete;
     }
 
     //getters and setters
-    public String getId() {
+    public String getTaskId() {
         return taskId;
+    }
+
+    public void setTaskId(String _id) {
+        taskId = _id;
     }
 
     public String getName() {
@@ -62,11 +65,11 @@ public class TaskEntity {
         name = newName;
     }
 
-    public Date getDay() {
+    public String getDay() {
         return day;
     }
 
-    public void setDay(Date day) {
+    public void setDay(String day) {
         this.day = day;
     }
 
