@@ -9,23 +9,25 @@ import android.support.annotation.NonNull;
 import java.sql.Date;
 import java.util.UUID;
 
+import langmebs.daystart.model.Task;
+
 /**
  * Created by brandon on 3/6/2018.
  */
 
 @Entity(tableName = "tasks")
-public class TaskEntity {
+public class TaskEntity implements Task {
 
     @NonNull
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "task_id")
-    private String taskId;
+    private int taskId;
 
     @ColumnInfo(name = "task_name")
     private String name;
 
     @ColumnInfo(name = "task_date")
-    private String day;
+    private long day;
 
     @ColumnInfo(name = "task_completed")
     private boolean isComplete;
@@ -33,27 +35,30 @@ public class TaskEntity {
     @Ignore
     //Constructors
     //Standard Constructor that assigns an Id because the user never needs it
-    public TaskEntity(String name, String day, boolean isComplete) {
-        this.taskId = UUID.randomUUID().toString();
+    public TaskEntity(String name, long day, boolean isComplete) {
         this.name = name;
         this.day = day;
         this.isComplete = isComplete;
     }
 
+
     //Constructor that may be used by the application when giving assigned ids
-    public TaskEntity(String taskId, String name, String day, boolean isComplete) {
+    public TaskEntity(int taskId, String name, long day, boolean isComplete) {
         this.taskId = taskId;
         this.name = name;
         this.day = day;
         this.isComplete = isComplete;
     }
 
+
     //getters and setters
-    public String getTaskId() {
+    public int getTaskId() {
         return taskId;
     }
 
-    public void setTaskId(String _id) {
+    //Should never be needed
+    //TODO Delete if true
+    public void setTaskId(int _id) {
         taskId = _id;
     }
 
@@ -65,11 +70,11 @@ public class TaskEntity {
         name = newName;
     }
 
-    public String getDay() {
+    public long getDay() {
         return day;
     }
 
-    public void setDay(String day) {
+    public void setDay(long day) {
         this.day = day;
     }
 

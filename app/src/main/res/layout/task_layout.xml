@@ -1,18 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:paddingTop="16dp"
-    android:paddingBottom="16dp"
-    android:paddingLeft="4dp"
-    android:paddingRight="4dp" >
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools" >
+    <data>
+        <variable name="task"
+            type="langmebs.daystart.model.Task"/>
+        <variable name="callback"
+            type="langmebs.daystart.TaskClickCallback"/>
+        <import type="android.view.View"/> <!-- this is for visibility ease-->
+    </data>
 
-    <TextView
-        android:id="@+id/task_name"
-        android:layout_width="match_parent"
+    <android.support.v7.widget.CardView
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:textSize="20sp"
-        android:background="@color/darkgrey" />
-</RelativeLayout>
+        android:minHeight="100dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="4dp" >
+        <RelativeLayout
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/darkgrey"
+            android:paddingTop="16dp"
+            android:paddingBottom="16dp"
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp" >
+
+            <TextView
+                android:id="@+id/task_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{task.getName()}"
+                android:textSize="20sp" />
+
+            <ImageButton
+                android:id="@+id/incomplete_box"
+                android:background="@color/darkgrey"
+                android:contentDescription="A custom checkbox for the task"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/empty_check"
+                android:onClick="@{() -> callback.onClick(task)}"
+                android:visibility="@{task.isComplete() ? View.GONE : View.VISIBLE}"/>
+
+            <ImageButton
+                android:id="@+id/complete_box"
+                android:background="@color/darkgrey"
+                android:contentDescription="A custom checkbox for the task"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/filled_check"
+                android:onClick="@{() -> callback.onClick(task)}"
+                android:visibility="@{task.isComplete() ? View.VISIBLE : View.GONE}"/>
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+</layout>

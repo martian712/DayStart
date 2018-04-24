@@ -4,6 +4,7 @@
     <string name="section_format">Hello World from section: %1$d</string>
 
     <string name="today_section_label">Today\'s Tasks</string>
+    <string name="loading_tasks">Loading Tasks...</string>
     <string name="add_task">Add a task for today</string>
 
     <!-- TODO: Remove or change this placeholder text -->

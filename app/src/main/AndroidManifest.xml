@@ -3,6 +3,7 @@
     package="langmebs.daystart">
 
     <application
+        android:name="langmebs.daystart.DayStartApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"

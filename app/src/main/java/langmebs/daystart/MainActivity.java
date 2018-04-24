@@ -19,6 +19,12 @@ import android.view.ViewGroup;
 
 import android.widget.TextView;
 
+import java.util.Calendar;
+
+import langmebs.daystart.db.TaskDatabase;
+import langmebs.daystart.db.TaskEntity;
+import langmebs.daystart.model.Task;
+
 public class MainActivity extends AppCompatActivity implements TodayFragment.OnFragmentInteractionListener{
 
     /**
@@ -35,6 +41,7 @@ public class MainActivity extends AppCompatActivity implements TodayFragment.OnF
      * The {@link ViewPager} that will host the section contents.
      */
     private ViewPager mViewPager;
+    private TaskDatabase taskDatabase;
 
     // The number of screens in the swipe view
     private static int NUM_SECTIONS = 3;
@@ -43,6 +50,19 @@ public class MainActivity extends AppCompatActivity implements TodayFragment.OnF
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        /*
+        //create the inital database
+        taskDatabase = TaskDatabase.getInstance(this);
+        long time = Calendar.getInstance().getTimeInMillis();
+        TaskEntity tasks[] = {new TaskEntity("Take meds", time, false),
+                new TaskEntity("Shower", time, false),
+                new TaskEntity("Shave", time, false),
+                new TaskEntity("Work until Noon", time, false),
+                new TaskEntity("Eat Lunch", time, false),
+                new TaskEntity("Start Dinner", time, false),
+                new TaskEntity("Do the dishes", time, false)};
+        taskDatabase.taskDao().insertTasks(tasks);
+        */
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -63,6 +83,12 @@ public class MainActivity extends AppCompatActivity implements TodayFragment.OnF
             }
         });
 
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        taskDatabase.close();
     }
 
 
@@ -93,7 +119,13 @@ public class MainActivity extends AppCompatActivity implements TodayFragment.OnF
 
     }
 
-    /**
+    /*
+    public TaskDatabase getTaskDatabase() {
+        return TaskDatabase.getInstance(this);
+    }
+    */
+
+    /**************************************************************************
      * A placeholder fragment containing a simple view.
      */
     public static class PlaceholderFragment extends Fragment {
@@ -128,7 +160,7 @@ public class MainActivity extends AppCompatActivity implements TodayFragment.OnF
         }
     }
 
-    /**
+    /**************************************************************************
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
      * one of the sections/tabs/pages.
      */
@@ -146,14 +178,19 @@ public class MainActivity extends AppCompatActivity implements TodayFragment.OnF
             Fragment frag;
             switch(position) {
                 case 0:
-                    Task tasks[] = {new Task("Take meds"),
-                        new Task("Shower"),
-                        new Task("Shave"),
-                        new Task("Work until Noon"),
-                        new Task("Eat Lunch"),
-                        new Task("Start Dinner"),
-                        new Task("Do the dishes")};
-                    frag = TodayFragment.newInstance(tasks);
+                    /*
+                    Task tasks[] = {new Task("Take meds", false),
+                        new Task("Shower", false),
+                        new Task("Shave", false),
+                        new Task("Work until Noon", false),
+                        new Task("Eat Lunch", false),
+                        new Task("Start Dinner", false),
+                        new Task("Do the dishes", false)};
+                    Calendar cal = new Calendar.getInstance();
+                    */
+                    frag = TodayFragment.newInstance();
+
+                    //frag = PlaceholderFragment.newInstance(position + 1);
                     break;
                 default:
                     frag = PlaceholderFragment.newInstance(position + 1);
@@ -168,5 +205,6 @@ public class MainActivity extends AppCompatActivity implements TodayFragment.OnF
             return NUM_SECTIONS;
         }
     }
+
 
 }
